@@ -35,22 +35,6 @@
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>maven-lazynoon</id>
-            <name>maven-lazynoon</name>
-            <url>http://nexus.beta.lazynoon.com/repository/maven-public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <distributionManagement>
         <snapshotRepository>
             <id>maven-snapshots</id>
