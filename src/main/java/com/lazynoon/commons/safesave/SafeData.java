@@ -41,16 +41,32 @@ abstract public class SafeData {
 	/**
 	 * 以安静模式检查明文数据对象是否存在错误
 	 *   通过错误码 getErrorCode() 检查是否存在错误
-	 *
+	 * @return 检查通过返回 true，否则返回 false
 	 */
 	abstract public boolean silentCheck();
+
+	/**
+	 * 计算全部字段，生成摘要
+	 * @return 8字节long型数（包含负数）
+	 */
 	abstract public long generateHashCode();
-	/** 合并加密用的头部数据（明文存储） **/
+
+	/**
+	 * 合并加密用的头部数据（明文存储）
+	 * @return 包含全部明文存储的字段
+	 */
 	abstract public byte[] mergeEncryptHead();
-	/** 合并加密用的头部数据（密文存储的数据源） **/
+
+	/**
+	 * 合并加密用的头部数据（密文存储的数据源）
+	 * @return 包含全部密文存储的字段
+	 */
 	abstract public byte[] mergeEncryptBody();
 
-	/** 检查版本是否符合要求 **/
+	/**
+	 * 检查版本是否符合要求
+	 * @return 检查通过返回 true，否则返回 false
+	 */
 	protected boolean silentCheckFront() {
 		errorCode = 0;
 		if(majorVersion <= 0) {
@@ -95,6 +111,7 @@ abstract public class SafeData {
 
 	/**
 	 * 从加密机加载主次版本号
+	 * @param encryptor 加密器
 	 */
 	protected void loadVersion(SafeEncryptor encryptor) {
 		this.majorVersion = encryptor.majorVersion;
@@ -198,7 +215,7 @@ abstract public class SafeData {
 
 	/**
 	 * 设置秘钥ID
-	 * @param secretKeyId
+	 * @param secretKeyId 密钥ID
 	 */
 	public void setSecretKeyId(int secretKeyId) {
 		this.secretKeyId = secretKeyId;

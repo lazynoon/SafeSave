@@ -105,7 +105,10 @@ public class v01SafeData extends SafeData {
 		return true;
 	}
 
-	/** 合并加密用的头部数据（明文存储） **/
+	/**
+	 * 合并加密用的头部数据（明文存储）
+	 * @return 包含全部明文存储的字段
+	 */
 	@Override
 	public byte[] mergeEncryptHead() {
 		byte[] bts = new byte[6];
@@ -118,7 +121,10 @@ public class v01SafeData extends SafeData {
 		return bts;
 	}
 
-	/** 合并加密用的头部数据（密文存储的数据源） **/
+	/**
+	 * 合并加密用的头部数据（密文存储的数据源）
+	 * @return 包含全部密文存储的字段
+	 */
 	@Override
 	public byte[] mergeEncryptBody() {
 		byte[] bts = new byte[26 + plaintextLength];
@@ -139,7 +145,10 @@ public class v01SafeData extends SafeData {
 		return bts;
 	}
 
-	/** 根据明文内容，生成摘要 **/
+	/**
+	 * 计算全部字段，生成摘要
+	 * @return 8字节long型数（包含负数）
+	 */
 	@Override
 	public long generateHashCode() {
 		long code = 0;

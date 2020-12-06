@@ -45,10 +45,17 @@ abstract public class SafeEncryptor {
 		this.keyStore = keyStore;
 	}
 
-	/** 获取加密器定义的主要版本号 **/
+	/**
+	 * 获取加密器定义的主要版本号
+	 * @return 加密器子类定义的主要版本号
+	 */
 	abstract public int getClassMajorVersion();
 
-	/** 安静模式检查加解密对象是否存在错误（不抛出检查异常） **/
+	/**
+	 * 安静模式检查加解密对象是否存在错误（不抛出检查异常）
+	 * @param safeData 明文数据对象
+	 * @return 数据完整性检查通过返回 true，否则返回 false
+	 */
 	protected boolean silentCheckData(SafeData safeData) {
 		if(safeData.silentCheck() == false) {
 			return false;
