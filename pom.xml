@@ -8,6 +8,8 @@
     <artifactId>safesave</artifactId>
     <version>1.0.0</version>
     <name>SafeSave - Data Encrypt Storage</name>
+    <description>Encrypted storage of sensitive data</description>
+    <url>https://github.com/lazynoon/SafeSave</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -106,15 +108,15 @@
         </license>
     </licenses>
     <scm>
-        <url>https://github.com/lazynoon/safesave</url>
-        <connection>https://github.com/lazynoon/safesave.git</connection>
-        <developerConnection>https://github.com/lazynoon/safesave</developerConnection>
+        <url>https://github.com/lazynoon/SafeSave</url>
+        <connection>https://github.com/lazynoon/SafeSave.git</connection>
+        <developerConnection>https://github.com/lazynoon/SafeSave</developerConnection>
     </scm>
     <developers>
         <developer>
             <name>Hansen</name>
             <email>hansen@lazynoon.com</email>
-            <url>https://github.com/lazynoon/safesave</url>
+            <url>https://github.com/lazynoon/SafeSave</url>
         </developer>
     </developers>
 
