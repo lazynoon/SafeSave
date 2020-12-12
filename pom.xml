@@ -7,6 +7,7 @@
     <groupId>com.github.lazynoon</groupId>
     <artifactId>safesave</artifactId>
     <version>1.0.0</version>
+    <name>SafeSave - Data Encrypt Storage</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
