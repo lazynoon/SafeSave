@@ -1,8 +1,10 @@
 package test.testcase;
 
 import com.lazynoon.commons.safesave.SafeCryptoException;
+import com.lazynoon.commons.safesave.utils.SafeByteUtils;
 import com.lazynoon.commons.safesave.utils.SafeMathUtils;
 import net_io.core.StatNIO;
+import net_io.myaction.CheckException;
 import net_io.utils.NetLog;
 
 /**
@@ -12,6 +14,7 @@ import net_io.utils.NetLog;
  * @Date 2020-12-05
  */
 public class TestUtilsMethod {
+	private static final int BYTE_SIZE = 256;
 	private byte[][] sourceData;
 
 	public TestUtilsMethod(byte[][] sourceData) {
@@ -20,6 +23,7 @@ public class TestUtilsMethod {
 
 	public void runTest() throws SafeCryptoException {
 		testMathUtils();
+		testIsByteMappingValid();
 	}
 
 	protected void testMathUtils() throws SafeCryptoException {
@@ -65,7 +69,55 @@ public class TestUtilsMethod {
 				"totalBytes: " + totalBytes +", " +
 				"totalMatch1Byte: " + totalMatch1Byte +", " +
 				"totalMatch2Byte: " + totalMatch2Byte +", " +
-				"costTime: " + costTime + "ms");
+				"costTime: " + costTime + " ms");
+	}
+
+	protected void testIsByteMappingValid() throws SafeCryptoException {
+		long startTime = System.nanoTime();
+		//字节映射表
+		byte[][] byteMappingPool = new byte[3][];
+		for(int i=0; i<byteMappingPool.length; i++) {
+			byteMappingPool[i] = new byte[BYTE_SIZE];
+		}
+		//加号生成
+		for(int i=0; i<BYTE_SIZE; i++) {
+			byteMappingPool[0][i] = (byte)(i + 5);
+		}
+		//移位生成
+		for(int i=0; i<BYTE_SIZE; i++) {
+			int num = i;
+			num = (num << 1 |  num >>> 7) & 0xFF;
+			byteMappingPool[1][i] = (byte)num;
+		}
+		//减号生成
+		for(int i=0; i<BYTE_SIZE; i++) {
+			byteMappingPool[2][i] = (byte)(i - 5);
+		}
+		//预期校验正确
+		for(int i=0; i<byteMappingPool.length; i++) {
+			byte[] byteMapping = byteMappingPool[i];
+			if(!SafeByteUtils.isByteMappingValid(byteMapping)) {
+				throw new SafeCryptoException(20100735, "isByteMappingValid verify fail. loop: " + i);
+			}
+		}
+		for(int loop=0; loop<1024; loop++) {
+			//修改1字节
+			for (int i = 0; i < byteMappingPool.length; i++) {
+				byte[] byteMapping = byteMappingPool[i];
+				int num1 = (int) Math.round(Math.random() * 0xFFFF) % BYTE_SIZE;
+				int num2 = (int) Math.round(Math.random() * 0xFFFF) % 127 + 1;
+				byteMapping[num1] += num2;
+			}
+			//预期校验错误
+			for (int i = 0; i < byteMappingPool.length; i++) {
+				byte[] byteMapping = byteMappingPool[i];
+				if (SafeByteUtils.isByteMappingValid(byteMapping)) {
+					throw new SafeCryptoException(20100736, "isByteMappingValid verify fail. loop: " + i + "/" + loop);
+				}
+			}
+		}
+		double costTime = (System.nanoTime() - startTime) / StatNIO.ONE_MILLION_DOUBLE;
+		NetLog.logInfo("PASS - testIsByteMappingValid, costTime: " + costTime + " ms");
 	}
 
 }

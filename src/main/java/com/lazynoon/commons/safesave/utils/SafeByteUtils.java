@@ -31,6 +31,29 @@ public class SafeByteUtils {
 	}
 
 	/**
+	 * 检查字节映射表是否正确
+	 * @param byteMapping 字节映射表（共256字节）
+	 * @return true OR false
+	 */
+	public static boolean isByteMappingValid(byte[] byteMapping) {
+		if(byteMapping == null || byteMapping.length != 256) {
+			return false;
+		}
+		int[] checkBuff = new int[256];
+		for(int i=0; i<checkBuff.length; i++) {
+			checkBuff[i] = -1;
+		}
+		for(int i=0; i<byteMapping.length; i++) {
+			int num = byteMapping[i] & 0xFF;
+			if(checkBuff[num] != -1) {
+				return false;
+			}
+			checkBuff[num] = i;
+		}
+		return true;
+	}
+
+	/**
 	 * 检查两字节数组的值，是否相等
 	 * @param bts1 一维数组1
 	 * @param bts2 一维数组2

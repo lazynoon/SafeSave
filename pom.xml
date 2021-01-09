@@ -6,7 +6,7 @@
 
     <groupId>com.github.lazynoon</groupId>
     <artifactId>safesave</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>SafeSave - Data Encrypt Storage</name>
     <description>Encrypted storage of sensitive data</description>
     <url>https://github.com/lazynoon/SafeSave</url>
