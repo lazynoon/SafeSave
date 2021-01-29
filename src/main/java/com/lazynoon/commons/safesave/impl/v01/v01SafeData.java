@@ -116,8 +116,8 @@ public class v01SafeData extends SafeData {
 		buff.order(ENDIAN);
 		writeVersion(buff); //主次版本号，2字节
 		buff.put((byte) byteMappingId);
-		buff.put((byte) (byteMappingId >>> 16));
-		buff.putShort((short) (byteMappingId & MASK_2_BYTE));
+		buff.put((byte) (secretKeyId >>> 16));
+		buff.putShort((short) (secretKeyId & MASK_2_BYTE));
 		return bts;
 	}
 
