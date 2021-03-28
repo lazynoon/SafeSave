@@ -8,14 +8,31 @@ package com.lazynoon.commons.safesave;
  */
 public class SafeCryptoException extends Exception {
 	private final int code;
+	private Exception causeException = null;
 
 	public SafeCryptoException(int code, String message) {
 		super(message);
 		this.code = code;
 	}
 
+	public SafeCryptoException(Exception causeException) {
+		this.code = -1;
+		this.causeException = causeException;
+	}
+
 	public int getCode() {
 		return code;
 	}
 
+	@Override
+	public String getMessage() {
+		if(causeException != null) {
+			return causeException.toString();
+		} else {
+			return super.getMessage();
+		}
+
+	}
+
 }
+

@@ -1,8 +1,7 @@
 package com.lazynoon.commons.safesave;
 
-import net_io.utils.DateUtils;
-
 import java.nio.ByteBuffer;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -104,7 +103,7 @@ abstract public class SafeData {
 				+ ", plaintextLength: " + plaintextLength;
 		if(encryptTime > 0) {
 			str += ", encryptTime: ";
-			str += DateUtils.format(new Date(encryptTime), "yyyy-MM-dd HH:mm:ss");
+			str += (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date(encryptTime));
 		}
 		return str;
 	}

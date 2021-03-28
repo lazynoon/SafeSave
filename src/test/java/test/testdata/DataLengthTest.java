@@ -2,10 +2,9 @@ package test.testdata;
 
 import com.lazynoon.commons.safesave.SafeCryptoException;
 import com.lazynoon.commons.safesave.SafeData;
+import com.lazynoon.commons.safesave.utils.SafeEncodeUtils;
+import com.lazynoon.commons.safesave.utils.SafeNetLog;
 import com.lazynoon.commons.safesave.utils.SafeByteUtils;
-import net_io.core.StatNIO;
-import net_io.utils.EncodeUtils;
-import net_io.utils.NetLog;
 import test.sample.EncryptionHelper;
 import test.sample.SourceBytesHelper;
 
@@ -19,8 +18,8 @@ public class DataLengthTest {
 		int lastBase64Length = 0;
 		for(byte[] originData : sourceData) {
 			byte[] encryptData = EncryptionHelper.encryptBytes(originData);
-			String base64Str = EncodeUtils.encodeBase64ToString(encryptData);
 			SafeData safeData = EncryptionHelper.decryptBytes(encryptData);
+			String base64Str = SafeEncodeUtils.encodeBase64ToString(encryptData);
 			byte[] decryptData = safeData.getPlaintextData();
 			if(originData.length != decryptData.length || SafeByteUtils.isEqual(originData, decryptData) == false) {
 				throw new SafeCryptoException(20100721, "encrypt & decrypt not equal." +
@@ -29,21 +28,21 @@ public class DataLengthTest {
 			}
 			if(base64Str.length() != lastBase64Length) {
 				lastBase64Length = base64Str.length();
-				NetLog.logInfo("origin length: " + originData.length
+				SafeNetLog.logInfo("origin length: " + originData.length
 						+ ", encrypt length: " + encryptData.length + ", base64 length: " + lastBase64Length);
 			}
 			totalRows++;
 			totalBytes += originData.length;
 		}
-		double costTime = (System.nanoTime() - startTime) / StatNIO.ONE_MILLION_DOUBLE;
-		NetLog.logInfo("PASS - testBase64Length, " +
+		double costTime = (System.nanoTime() - startTime) / SafeEncodeUtils.ONE_MILLION_DOUBLE;
+		SafeNetLog.logInfo("PASS - testBase64Length, " +
 				"totalRows: " + totalRows +", " +
 				"totalBytes: " + totalBytes +", " +
 				"costTime: " + costTime + "ms");
 
 	}
 	public static void main(String[] args) throws SafeCryptoException {
-		NetLog.LOG_LEVEL = NetLog.INFO;
+		SafeNetLog.LOG_LEVEL = SafeNetLog.INFO;
 		testBase64Length();
 	}
 }

@@ -1,6 +1,6 @@
 package test.sample;
 
-import net_io.utils.EncodeUtils;
+import com.lazynoon.commons.safesave.utils.SafeEncodeUtils;
 
 /**
  * 加密数据源生成类
@@ -27,7 +27,7 @@ public class SourceBytesHelper {
 	public static String formatRandomBytes(byte[][] randomBytes) {
 		StringBuilder builder = new StringBuilder();
 		for(int i=0; i<randomBytes.length; i++) {
-			builder.append(EncodeUtils.encodeBase64ToString(randomBytes[i]));
+			builder.append(SafeEncodeUtils.encodeBase64ToString(randomBytes[i]));
 			builder.append("\n");
 		}
 		return builder.toString();
@@ -46,7 +46,7 @@ public class SourceBytesHelper {
 				continue;
 
 			}
-			result[i] = EncodeUtils.decodeBase64(line);
+			result[i] = SafeEncodeUtils.decodeBase64(line);
 		}
 		return result;
 	}

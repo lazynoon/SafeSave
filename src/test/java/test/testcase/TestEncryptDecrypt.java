@@ -2,9 +2,9 @@ package test.testcase;
 
 import com.lazynoon.commons.safesave.SafeCryptoException;
 import com.lazynoon.commons.safesave.SafeData;
+import com.lazynoon.commons.safesave.utils.SafeEncodeUtils;
+import com.lazynoon.commons.safesave.utils.SafeNetLog;
 import com.lazynoon.commons.safesave.utils.SafeByteUtils;
-import net_io.core.StatNIO;
-import net_io.utils.NetLog;
 import test.sample.EncryptionHelper;
 
 /**
@@ -40,8 +40,8 @@ public class TestEncryptDecrypt {
 			totalRows++;
 			totalBytes += originData.length;
 		}
-		double costTime = (System.nanoTime() - startTime) / StatNIO.ONE_MILLION_DOUBLE;
-		NetLog.logInfo("PASS - testDecryptEqual, " +
+		double costTime = (System.nanoTime() - startTime) / SafeEncodeUtils.ONE_MILLION_DOUBLE;
+		SafeNetLog.logInfo("PASS - testDecryptEqual, " +
 				"totalRows: " + totalRows +", " +
 				"totalBytes: " + totalBytes +", " +
 				"costTime: " + costTime + "ms");

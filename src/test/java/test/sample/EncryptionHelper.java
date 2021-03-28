@@ -1,7 +1,7 @@
 package test.sample;
 
 import com.lazynoon.commons.safesave.*;
-import net_io.utils.EncodeUtils;
+import com.lazynoon.commons.safesave.utils.SafeEncodeUtils;
 
 /**
  * 加解密助手类示例
@@ -15,7 +15,7 @@ public class EncryptionHelper {
 	private SafeKeyStore keyStore = new SafeKeyStore();
 	private int currentMajorVersion = 1;
 	private int currentMinorVersion = 0;
-	private int currentKeyId = 1;
+	private int currentKeyId = 10001;
 	private int currentMappingId = 1;
 
 	private EncryptionHelper() {
@@ -40,14 +40,14 @@ public class EncryptionHelper {
 		}
 		//密钥
 		byte[][] keyPool = new byte[2][];
-		keyPool[0] = "626a8034bb8e".getBytes(EncodeUtils.Charsets.UTF_8);
-		keyPool[1] = "ea91bc0084f6".getBytes(EncodeUtils.Charsets.UTF_8);
+		keyPool[0] = "626a8034bb8e".getBytes(SafeEncodeUtils.Charsets.UTF_8);
+		keyPool[1] = "ea91bc0084f6".getBytes(SafeEncodeUtils.Charsets.UTF_8);
 		//注册到密钥对象
 		for(int i=0; i<byteMappingPool.length; i++) {
 			keyStore.registerByteMapping(i+1, byteMappingPool[i]);
 		}
 		for(int i=0; i<keyPool.length; i++) {
-			keyStore.registerSecretKey(i+1, keyPool[i]);
+			keyStore.registerSecretKey(i+10001, keyPool[i]);
 		}
 	}
 
@@ -80,19 +80,19 @@ public class EncryptionHelper {
 		if(str == null || str.length() == 0) {
 			return str;
 		}
-		byte[] data = str.getBytes(EncodeUtils.Charsets.UTF_8);
+		byte[] data = str.getBytes(SafeEncodeUtils.Charsets.UTF_8);
 		data = instance._encrypt(data);
-		return EncodeUtils.encodeBase64ToString(data);
+		return SafeEncodeUtils.encodeBase64ToString(data);
 	}
 	public static String decryptString(String str) throws SafeCryptoException {
 		if(str == null || str.length() == 0) {
 			return str;
 		}
-		byte[] data = EncodeUtils.decodeBase64(str);
+		byte[] data = SafeEncodeUtils.decodeBase64(str);
 		SafeData safeData = instance._decrypt(data);
 		if(safeData == null || safeData.getErrorCode() != 0) {
 			throw new SafeCryptoException(1101, "decrypt error");
 		}
-		return new String(safeData.getPlaintextData(), EncodeUtils.Charsets.UTF_8);
+		return new String(safeData.getPlaintextData(), SafeEncodeUtils.Charsets.UTF_8);
 	}
 }

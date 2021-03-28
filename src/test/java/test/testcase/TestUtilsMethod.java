@@ -1,11 +1,10 @@
 package test.testcase;
 
 import com.lazynoon.commons.safesave.SafeCryptoException;
+import com.lazynoon.commons.safesave.utils.SafeEncodeUtils;
+import com.lazynoon.commons.safesave.utils.SafeNetLog;
 import com.lazynoon.commons.safesave.utils.SafeByteUtils;
 import com.lazynoon.commons.safesave.utils.SafeMathUtils;
-import net_io.core.StatNIO;
-import net_io.myaction.CheckException;
-import net_io.utils.NetLog;
 
 /**
  * 常用类方法测试
@@ -63,8 +62,8 @@ public class TestUtilsMethod {
 				}
 			}
 		}
-		double costTime = (System.nanoTime() - startTime) / StatNIO.ONE_MILLION_DOUBLE;
-		NetLog.logInfo("PASS - testMathUtils, " +
+		double costTime = (System.nanoTime() - startTime) / SafeEncodeUtils.ONE_MILLION_DOUBLE;
+		SafeNetLog.logInfo("PASS - testMathUtils, " +
 				"totalRows: " + totalRows +", " +
 				"totalBytes: " + totalBytes +", " +
 				"totalMatch1Byte: " + totalMatch1Byte +", " +
@@ -116,8 +115,8 @@ public class TestUtilsMethod {
 				}
 			}
 		}
-		double costTime = (System.nanoTime() - startTime) / StatNIO.ONE_MILLION_DOUBLE;
-		NetLog.logInfo("PASS - testIsByteMappingValid, costTime: " + costTime + " ms");
+		double costTime = (System.nanoTime() - startTime) / SafeEncodeUtils.ONE_MILLION_DOUBLE;
+		SafeNetLog.logInfo("PASS - testIsByteMappingValid, costTime: " + costTime + " ms");
 	}
 
 }

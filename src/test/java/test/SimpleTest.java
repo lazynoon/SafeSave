@@ -1,6 +1,6 @@
 package test;
 
-import net_io.utils.NetLog;
+import com.lazynoon.commons.safesave.utils.SafeNetLog;
 import test.sample.EncryptionHelper;
 
 /**
@@ -12,7 +12,7 @@ import test.sample.EncryptionHelper;
 public class SimpleTest {
 
 	public static void main(String[] args) throws Exception {
-		NetLog.LOG_LEVEL = NetLog.INFO;
+		SafeNetLog.LOG_LEVEL = SafeNetLog.INFO;
 		long startTime = System.currentTimeMillis();
 		for(int i=0; i<10000; i++) {
 			String originStr = System.currentTimeMillis() + "|" + Math.random();
@@ -20,26 +20,26 @@ public class SimpleTest {
 			String encryptStr = EncryptionHelper.encryptString(originStr);
 			String decryptStr = EncryptionHelper.decryptString(encryptStr);
 			if(i % 100 == 0 || !originStr.equals(decryptStr)) {
-				NetLog.logInfo("loop - " + i);
-				NetLog.logInfo("\toriginStr: " + originStr.length() + ", " + originStr);
-				NetLog.logInfo("\tencryptStr: " + encryptStr.length() + ", " + encryptStr);
-				NetLog.logInfo("\tdecryptStr: " + decryptStr.length() + ", " + decryptStr);
+				SafeNetLog.logInfo("loop - " + i);
+				SafeNetLog.logInfo("\toriginStr: " + originStr.length() + ", " + originStr);
+				SafeNetLog.logInfo("\tencryptStr: " + encryptStr.length() + ", " + encryptStr);
+				SafeNetLog.logInfo("\tdecryptStr: " + decryptStr.length() + ", " + decryptStr);
 			}
 			if (!originStr.equals(decryptStr)) {
-				NetLog.logWarn("encrypt error!");
+				SafeNetLog.logWarn("encrypt error!");
 				break;
 			}
 		}
 		long costTime = System.currentTimeMillis() - startTime;
-		NetLog.logInfo("CostTime: "+costTime+"ms");
+		SafeNetLog.logInfo("CostTime: "+costTime+"ms");
 		String[] sourceArr = {"A", "12345", "123456", "0123456789", "01234567890123456789",
 			"12345|0123456789ABCDE|", "12345|0123456789ABCDE|1"};
 		for(String sourceStr : sourceArr) {
 			byte[] encryptedData = EncryptionHelper.encryptBytes(sourceStr.getBytes());
-			NetLog.logInfo(sourceStr + " 加密后数据长度：" + encryptedData.length);
-			NetLog.logInfo(sourceStr + " 解密数据: " + EncryptionHelper.decryptBytes(encryptedData).toString());
+			SafeNetLog.logInfo(sourceStr + " 加密后数据长度：" + encryptedData.length);
+			SafeNetLog.logInfo(sourceStr + " 解密数据: " + EncryptionHelper.decryptBytes(encryptedData).toString());
 		}
-		NetLog.logInfo("DONE");
+		SafeNetLog.logInfo("DONE");
 	}
 
 }

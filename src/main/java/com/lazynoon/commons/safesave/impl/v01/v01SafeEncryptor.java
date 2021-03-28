@@ -3,9 +3,8 @@ package com.lazynoon.commons.safesave.impl.v01;
 import com.lazynoon.commons.safesave.SafeCryptoException;
 import com.lazynoon.commons.safesave.SafeData;
 import com.lazynoon.commons.safesave.SafeEncryptor;
+import com.lazynoon.commons.safesave.crypto.SafeAES;
 import com.lazynoon.commons.safesave.utils.SafeByteUtils;
-import net_io.myaction.tool.crypto.AES;
-import net_io.myaction.tool.exception.CryptoException;
 
 /**
  * v1.0 加密解密处理类
@@ -49,10 +48,10 @@ public class v01SafeEncryptor extends SafeEncryptor {
 		}
 		byte[] headBts = data.mergeEncryptHead();
 		byte[] bodyBts = data.mergeEncryptBody();
-		AES aes = new AES(key);
+		SafeAES aes = new SafeAES(key);
 		try {
 			bodyBts = aes.encrypt(bodyBts);
-		} catch (CryptoException e) {
+		} catch (SafeCryptoException e) {
 			throw new SafeCryptoException(20101503, e.getMessage());
 		}
 		if(byteMapping != null) {
@@ -92,10 +91,10 @@ public class v01SafeEncryptor extends SafeEncryptor {
 		if(byteMapping != null) {
 			bodyBts = SafeByteUtils.convertMapping(bodyBts, byteMapping);
 		}
-		AES aes = new AES(key);
+		SafeAES aes = new SafeAES(key);
 		try {
 			bodyBts = aes.decrypt(bodyBts);
-		} catch (CryptoException e) {
+		} catch (SafeCryptoException e) {
 			safeData.setDataError(20101604, "CryptoException: "+e.getMessage());
 			return safeData;
 		}

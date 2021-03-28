@@ -1,6 +1,6 @@
 package test;
 
-import net_io.utils.NetLog;
+import com.lazynoon.commons.safesave.utils.SafeNetLog;
 import test.sample.SourceBytesHelper;
 import test.testcase.TestEncryptDecrypt;
 import test.testcase.TestEncryptSourceData;
@@ -16,7 +16,7 @@ public class RunTestCase {
 	private static byte[][] sourceData = SourceBytesHelper.generateRandomBytes(2048, 3);
 
 	public static void main(String[] args) throws Exception {
-		NetLog.LOG_LEVEL = NetLog.INFO;
+		SafeNetLog.LOG_LEVEL = SafeNetLog.INFO;
 		new TestEncryptSourceData().runTest();
 		new TestEncryptDecrypt(sourceData).runTest();
 		new TestUtilsMethod(sourceData).runTest();

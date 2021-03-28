@@ -1,9 +1,9 @@
 package test.testcase;
 
 import com.lazynoon.commons.safesave.SafeCryptoException;
+import com.lazynoon.commons.safesave.utils.SafeEncodeUtils;
+import com.lazynoon.commons.safesave.utils.SafeNetLog;
 import com.lazynoon.commons.safesave.utils.SafeByteUtils;
-import net_io.core.StatNIO;
-import net_io.utils.NetLog;
 import test.sample.SourceBytesHelper;
 
 /**
@@ -31,8 +31,8 @@ public class TestEncryptSourceData {
 						"testGenerateRandom not unique data, rowNum: "+rowNum+", colNum: "+colNum);
 			}
 		}
-		double costTime = (System.nanoTime() - startTime) / StatNIO.ONE_MILLION_DOUBLE;
-		NetLog.logInfo("PASS - testGenerateRandom, costTime: " + costTime + "ms");
+		double costTime = (System.nanoTime() - startTime) / SafeEncodeUtils.ONE_MILLION_DOUBLE;
+		SafeNetLog.logInfo("PASS - testGenerateRandom, costTime: " + costTime + "ms");
 	}
 
 	protected void testEncodeString() throws SafeCryptoException {
@@ -48,7 +48,7 @@ public class TestEncryptSourceData {
 						"testEncodeString decode not equal, rowNum: "+rowNum+", colNum: "+colNum+", loop: "+i);
 			}
 		}
-		double costTime = (System.nanoTime() - startTime) / StatNIO.ONE_MILLION_DOUBLE;
-		NetLog.logInfo("PASS - testEncodeString, costTime: " + costTime + "ms");
+		double costTime = (System.nanoTime() - startTime) / SafeEncodeUtils.ONE_MILLION_DOUBLE;
+		SafeNetLog.logInfo("PASS - testEncodeString, costTime: " + costTime + "ms");
 	}
 }
